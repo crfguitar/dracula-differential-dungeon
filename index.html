@@ -9,20 +9,25 @@
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --ink: #0d0b16;
-      --velvet: #1c1424;
-      --plum: #261733;
-      --accent: #ff79c6;
-      --accent-2: #50fa7b;
-      --accent-3: #bd93f9;
+      --ink: #000000;
+      --velvet: #0a0004;
+      --plum: #1a0033;
+      --accent: #9d4edd;
+      --accent-2: #c77dff;
+      --accent-3: #e0aaff;
       --text: #f8f8f2;
-      --muted: #8a88a0;
-      --danger: #ff5555;
-      --success: #50fa7b;
+      --muted: #d4a5ff;
+      --danger: #9d4edd;
+      --success: #c77dff;
     }
 
     * {
       box-sizing: border-box;
+      cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="%239d4edd" opacity="0.4"/><circle cx="12" cy="12" r="3" fill="%23c77dff"/></svg>') 12 12, auto;
+    }
+
+    button, select, input, a {
+      cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2L15 10L22 12L15 14L12 22L9 14L2 12L9 10Z" fill="%239d4edd"/></svg>') 12 12, pointer;
     }
 
     body {
@@ -30,9 +35,38 @@
       min-height: 100vh;
       font-family: "Poppins", sans-serif;
       color: var(--text);
-      background: radial-gradient(circle at 20% 15%, rgba(189, 147, 249, 0.16), transparent 55%),
-        radial-gradient(circle at 80% 20%, rgba(80, 250, 123, 0.18), transparent 50%),
-        linear-gradient(135deg, #05030a, #1b1025 55%, #231534);
+      background: radial-gradient(circle at 20% 15%, rgba(157, 74, 221, 0.3), transparent 55%),
+        radial-gradient(circle at 80% 20%, rgba(0, 0, 0, 0.8), transparent 50%),
+        linear-gradient(135deg, #000000, #1a0033 55%, #0d001a);
+      position: relative;
+      overflow-x: hidden;
+      animation: screenFlicker 10s ease-in-out infinite;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image:
+        radial-gradient(2px 2px at 20px 30px, rgba(157,74,221,0.3), rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 60px 70px, rgba(157,74,221,0.3), rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 50px 50px, rgba(157,74,221,0.3), rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 130px 80px, rgba(157,74,221,0.3), rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 90px 10px, rgba(157,74,221,0.3), rgba(0,0,0,0));
+      background-size: 200px 200px;
+      background-repeat: repeat;
+      opacity: 0.4;
+      animation: purpleGlow 20s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes purpleGlow {
+      0% { opacity: 0.3; }
+      50% { opacity: 0.5; }
+      100% { opacity: 0.3; }
     }
 
     header {
@@ -44,9 +78,41 @@
       margin: 0;
       font-size: clamp(2rem, 5vw, 3.5rem);
       letter-spacing: 0.08em;
-      color: var(--accent);
+      color: #c77dff;
       text-transform: uppercase;
-      text-shadow: 0 0 18px rgba(255, 121, 198, 0.6);
+      text-shadow: 0 0 40px rgba(157, 74, 221, 1),
+                   0 0 80px rgba(199, 125, 255, 0.8),
+                   0 5px 15px rgba(0, 0, 0, 0.9),
+                   0 10px 30px rgba(157, 74, 221, 0.6);
+      animation: vampireGlow 3s ease-in-out infinite;
+      position: relative;
+    }
+
+    header h1::after {
+      content: '🩸';
+      position: absolute;
+      right: -50px;
+      top: -10px;
+      font-size: 2rem;
+      animation: drip 4s ease-in-out infinite;
+    }
+
+    @keyframes vampireGlow {
+      0%, 100% {
+        text-shadow: 0 0 30px rgba(157, 74, 221, 0.9),
+                     0 0 60px rgba(199, 125, 255, 0.7),
+                     0 5px 10px rgba(0, 0, 0, 0.8);
+      }
+      50% {
+        text-shadow: 0 0 50px rgba(157, 74, 221, 1),
+                     0 0 80px rgba(199, 125, 255, 0.9),
+                     0 5px 15px rgba(0, 0, 0, 0.9);
+      }
+    }
+
+    @keyframes drip {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(10px); }
     }
 
     header p {
@@ -64,12 +130,33 @@
     }
 
     .panel {
-      background: rgba(32, 22, 45, 0.94);
-      border: 1px solid rgba(189, 147, 249, 0.18);
+      background: rgba(10, 0, 10, 0.95);
+      border: 2px solid rgba(157, 74, 221, 0.6);
       border-radius: 22px;
       padding: 1.6rem;
-      box-shadow: 0 18px 44px rgba(8, 6, 18, 0.7);
+      box-shadow: 0 18px 44px rgba(0, 0, 0, 0.9),
+                  inset 0 0 30px rgba(157, 74, 221, 0.15),
+                  0 0 30px rgba(157, 74, 221, 0.3);
       backdrop-filter: blur(10px);
+      position: relative;
+    }
+
+    .panel::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      border-radius: 22px;
+      background: linear-gradient(135deg, rgba(157, 74, 221, 0.4), transparent);
+      z-index: -1;
+      animation: pulsePanel 4s ease-in-out infinite;
+    }
+
+    @keyframes pulsePanel {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 0.6; }
     }
 
     .controls {
@@ -114,24 +201,49 @@
       cursor: pointer;
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      background: linear-gradient(135deg, rgba(255, 121, 198, 0.85), rgba(189, 147, 249, 0.85));
-      box-shadow: 0 10px 24px rgba(255, 121, 198, 0.28);
+      background: linear-gradient(135deg, rgba(157, 74, 221, 0.95), rgba(199, 125, 255, 0.85));
+      box-shadow: 0 10px 24px rgba(157, 74, 221, 0.7),
+                  inset 0 -2px 10px rgba(0, 0, 0, 0.5),
+                  0 0 20px rgba(157, 74, 221, 0.4);
       font-weight: 600;
+      position: relative;
+      overflow: hidden;
+    }
+
+    button::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(157, 74, 221, 0.3), transparent);
+      animation: buttonPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes buttonPulse {
+      0%, 100% { transform: scale(0); opacity: 0; }
+      50% { transform: scale(1); opacity: 1; }
     }
 
     button:hover {
       transform: translateY(-2px);
+      box-shadow: 0 15px 30px rgba(157, 74, 221, 0.8),
+                  inset 0 -2px 10px rgba(0, 0, 0, 0.7);
     }
 
     button.secondary {
-      background: linear-gradient(135deg, rgba(80, 250, 123, 0.85), rgba(98, 114, 164, 0.75));
-      box-shadow: 0 10px 22px rgba(80, 250, 123, 0.22);
+      background: linear-gradient(135deg, rgba(157, 74, 221, 0.95), rgba(140, 60, 200, 0.85));
+      box-shadow: 0 10px 22px rgba(157, 74, 221, 0.6),
+                  inset 0 -2px 10px rgba(0, 0, 0, 0.5),
+                  0 0 20px rgba(157, 74, 221, 0.4);
     }
 
     button.ghost {
       background: transparent;
-      box-shadow: inset 0 0 0 1px rgba(189, 147, 249, 0.35);
-      color: var(--accent-3);
+      box-shadow: inset 0 0 0 2px rgba(157, 74, 221, 0.8);
+      color: #c77dff;
+      text-shadow: 0 0 10px rgba(157, 74, 221, 0.5);
     }
 
     .question-card {
@@ -149,18 +261,21 @@
 
     .topic-tag {
       font-size: 0.75rem;
-      color: var(--accent-2);
-      background: rgba(80, 250, 123, 0.1);
+      color: #c77dff;
+      background: rgba(157, 74, 221, 0.25);
       padding: 0.35rem 0.7rem;
       border-radius: 999px;
       letter-spacing: 0.08em;
       text-transform: uppercase;
+      border: 1px solid rgba(157, 74, 221, 0.6);
+      text-shadow: 0 0 10px rgba(157, 74, 221, 0.8);
     }
 
     .difficulty-tag {
       font-size: 0.75rem;
-      color: var(--accent-3);
+      color: #e0aaff;
       letter-spacing: 0.08em;
+      font-weight: 700;
     }
 
     .prompt {
@@ -257,20 +372,25 @@
     }
 
     .stat-card {
-      background: rgba(24, 17, 33, 0.92);
+      background: rgba(10, 0, 10, 0.92);
       border-radius: 18px;
       padding: 1.2rem;
-      border: 1px solid rgba(189, 147, 249, 0.18);
+      border: 2px solid rgba(157, 74, 221, 0.6);
       display: grid;
       gap: 0.7rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8),
+                  inset 0 0 20px rgba(157, 74, 221, 0.15),
+                  0 0 20px rgba(157, 74, 221, 0.3);
     }
 
     .stat-card h3 {
       margin: 0;
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      color: var(--accent-3);
+      color: #c77dff;
       font-size: 0.95rem;
+      text-shadow: 0 0 15px rgba(157, 74, 221, 0.9);
+      font-weight: 700;
     }
 
     .stat-value {
@@ -307,23 +427,89 @@
       position: fixed;
       top: -100px;
       left: -60px;
-      width: 220px;
-      height: 220px;
+      width: 300px;
+      height: 300px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(255, 121, 198, 0.38), rgba(255, 121, 198, 0));
-      filter: blur(4px);
+      background: radial-gradient(circle, rgba(157, 74, 221, 0.7), rgba(157, 74, 221, 0));
+      filter: blur(40px);
       pointer-events: none;
-      animation: pulse 10s ease-in-out infinite alternate;
+      animation: pulse 10s ease-in-out infinite alternate, drift 20s ease-in-out infinite;
+    }
+
+    @keyframes drift {
+      0%, 100% {
+        transform: translate(0, 0);
+      }
+      25% {
+        transform: translate(100px, 50px);
+      }
+      50% {
+        transform: translate(-50px, 100px);
+      }
+      75% {
+        transform: translate(80px, -30px);
+      }
+    }
+
+    @keyframes screenFlicker {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.97; }
+      51% { opacity: 1; }
+      52% { opacity: 0.95; }
+      53% { opacity: 1; }
+    }
+
+    .blood-drip {
+      position: fixed;
+      top: -20px;
+      width: 2px;
+      height: 0;
+      background: linear-gradient(to bottom, rgba(157, 74, 221, 0.8), rgba(157, 74, 221, 0));
+      pointer-events: none;
+      animation: dripping 3s ease-in infinite;
+    }
+
+    .blood-drip:nth-child(9) {
+      left: 10%;
+      animation-delay: 0s;
+    }
+
+    .blood-drip:nth-child(10) {
+      left: 45%;
+      animation-delay: 1.5s;
+    }
+
+    .blood-drip:nth-child(11) {
+      left: 78%;
+      animation-delay: 0.8s;
+    }
+
+    @keyframes dripping {
+      0% {
+        height: 0;
+        top: -20px;
+        opacity: 1;
+      }
+      50% {
+        height: 100px;
+        opacity: 0.8;
+      }
+      100% {
+        height: 120px;
+        top: 200px;
+        opacity: 0;
+      }
     }
 
     .bat {
       position: fixed;
       width: 70px;
       aspect-ratio: 1;
-      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 32"><path fill="%23bd93f9" d="M9 13c4-5 9-9 16-9s7 2 7 2 0-3 3-3 3 3 3 3 0-2 3-2 5 4 5 4l4-2-1 4 3 3-4 2 2 5-5-2s-3 5-7 5-6-3-6-3-3 3-7 3-9-6-9-6l-5 2 2-6-4-1 3-3-1-4z"/></svg>') no-repeat center/contain;
-      opacity: 0.45;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 32"><path fill="%239d4edd" d="M9 13c4-5 9-9 16-9s7 2 7 2 0-3 3-3 3 3 3 3 0-2 3-2 5 4 5 4l4-2-1 4 3 3-4 2 2 5-5-2s-3 5-7 5-6-3-6-3-3 3-7 3-9-6-9-6l-5 2 2-6-4-1 3-3-1-4z"/></svg>') no-repeat center/contain;
+      opacity: 0.8;
       pointer-events: none;
       animation: bat 14s linear infinite;
+      filter: drop-shadow(0 0 15px rgba(157, 74, 221, 0.9));
     }
 
     .bat:nth-of-type(2) {
@@ -337,6 +523,72 @@
       bottom: 18%;
       left: 18%;
       animation-duration: 16s;
+    }
+
+    .skull {
+      position: fixed;
+      font-size: 3rem;
+      opacity: 0.25;
+      pointer-events: none;
+      animation: float 15s ease-in-out infinite;
+      filter: drop-shadow(0 0 25px rgba(157, 74, 221, 0.9));
+    }
+
+    .skull:nth-of-type(5) {
+      top: 5%;
+      right: 5%;
+      animation-delay: -3s;
+    }
+
+    .skull:nth-of-type(6) {
+      bottom: 15%;
+      right: 20%;
+      animation-delay: -7s;
+    }
+
+    .spider {
+      position: fixed;
+      font-size: 2rem;
+      opacity: 0.3;
+      pointer-events: none;
+      animation: swing 5s ease-in-out infinite;
+      transform-origin: top center;
+    }
+
+    .spider:nth-of-type(7) {
+      top: 0;
+      left: 15%;
+      animation-delay: -1s;
+    }
+
+    .spider:nth-of-type(8) {
+      top: 0;
+      right: 30%;
+      animation-delay: -3s;
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0) rotate(0deg);
+      }
+      25% {
+        transform: translateY(-20px) rotate(5deg);
+      }
+      50% {
+        transform: translateY(0) rotate(-5deg);
+      }
+      75% {
+        transform: translateY(-15px) rotate(3deg);
+      }
+    }
+
+    @keyframes swing {
+      0%, 100% {
+        transform: rotate(-10deg);
+      }
+      50% {
+        transform: rotate(10deg);
+      }
     }
 
     @keyframes pulse {
@@ -408,11 +660,20 @@
   <div class="bat" style="top: 12%; left: 22%;"></div>
   <div class="bat"></div>
   <div class="bat"></div>
+  <div class="skull">💀</div>
+  <div class="skull">☠️</div>
+  <div class="spider">🕷️</div>
+  <div class="spider">🕸️</div>
+  <div class="blood-drip"></div>
+  <div class="blood-drip"></div>
+  <div class="blood-drip"></div>
   <header>
-    <h1>Dracula's Differential Dungeon</h1>
-    <p>
-      Step into the candlelit hall, challenger. Wrestle first-order phantoms, charm Laplace spirits, and race the clock
-      before sunrise. Every correct answer adds garlic to your arsenal.
+    <h1>🦇 DRACULA'S DIFFERENTIAL DUNGEON 🦇</h1>
+    <p style="color: #c77dff; font-weight: 600; text-shadow: 0 0 20px rgba(157, 74, 221, 0.8), 0 0 40px rgba(157, 74, 221, 0.4);">
+      ⚠️ ENTER AT YOUR OWN RISK ⚠️ You've stumbled into the cursed crypt where mathematical nightmares dwell.
+      Face unholy differential equations, battle demonic Laplace transforms, and survive until dawn... if you can.
+      Every wrong answer feeds the darkness. Every correct answer may grant you escape... or pull you deeper into the abyss.
+      The clock is ticking. The creatures are watching. WILL YOU SURVIVE?
     </p>
   </header>
   <main>
@@ -425,28 +686,28 @@
         <label>
           Difficulty
           <select id="difficultyFilter">
-            <option value="all">All</option>
-            <option value="coffin">Coffin Cozy</option>
-            <option value="fang">Fang Sharp</option>
-            <option value="nightmare">Final Nightmare</option>
+            <option value="all">All Horrors</option>
+            <option value="coffin">💀 Freshly Buried</option>
+            <option value="fang">🩸 Bloodthirsty</option>
+            <option value="nightmare">☠️ ETERNAL DAMNATION</option>
           </select>
         </label>
-        <button id="newQuestionBtn">Summon</button>
-        <button id="flashcardBtn" class="ghost">Flashcard Mode</button>
+        <button id="newQuestionBtn">⚰️ SUMMON EVIL ⚰️</button>
+        <button id="flashcardBtn" class="ghost">🕯️ Cursed Study Mode</button>
       </div>
       <div class="question-card">
         <div class="question-header">
-          <span class="topic-tag" id="topicTag">Choose a topic</span>
-          <span class="difficulty-tag" id="difficultyTag">Difficulty</span>
+          <span class="topic-tag" id="topicTag">🔮 Awaiting Your Doom</span>
+          <span class="difficulty-tag" id="difficultyTag">Terror Level</span>
         </div>
-        <div class="prompt" id="prompt">
-          Ready to duel? Select your filters and hit Summon to conjure a fresh threat.
+        <div class="prompt" id="prompt" style="border: 2px solid rgba(157, 74, 221, 0.6); background: rgba(0, 0, 0, 0.7); box-shadow: 0 0 20px rgba(157, 74, 221, 0.3);">
+          💀 The crypt awaits... Select your curse and summon your mathematical nightmare. Choose wisely, for each problem may be your last...
         </div>
         <div class="options" id="options"></div>
         <div class="actions">
-          <button id="checkAnswerBtn" class="secondary">Check Answer</button>
-          <button id="hintBtn" class="ghost">Hint</button>
-          <button id="solutionBtn" class="ghost">Reveal Solution</button>
+          <button id="checkAnswerBtn" class="secondary">🗡️ FACE YOUR FATE</button>
+          <button id="hintBtn" class="ghost">👻 Spectral Whisper</button>
+          <button id="solutionBtn" class="ghost">⚰️ Surrender to Death</button>
         </div>
         <div class="feedback" id="feedback"></div>
         <div class="hint-stage" id="hintStage"></div>
@@ -455,45 +716,50 @@
     </section>
     <aside class="sidebar">
       <div class="stat-card">
-        <h3>Score</h3>
-        <div class="stat-value" id="scoreCounter">0 / 0</div>
+        <h3>💀 SOUL COUNT 💀</h3>
+        <div class="stat-value" id="scoreCounter" style="color: #9d4edd; text-shadow: 0 0 15px rgba(157, 74, 221, 0.8);">0 / 0</div>
         <progress id="accuracyBar" value="0" max="100"></progress>
-        <span id="accuracyLabel">Accuracy: 0%</span>
-        <span id="streakLabel">Streak: 0 (Best 0)</span>
+        <span id="accuracyLabel" style="color: #e0aaff;">Survival Rate: 0%</span>
+        <span id="streakLabel" style="color: #e0aaff;">Kill Streak: 0 (Best 0)</span>
       </div>
       <div class="stat-card">
-        <h3>Speedrun</h3>
-        <div class="timer" id="timerDisplay">03:00</div>
+        <h3>⏱️ DEATH COUNTDOWN ⏱️</h3>
+        <div class="timer" id="timerDisplay" style="color: #9d4edd; font-size: 2rem; text-shadow: 0 0 20px rgba(157, 74, 221, 0.9);">03:00</div>
         <div class="actions" style="margin-top: 0.4rem;">
-          <button id="startTimerBtn">Start Hunt</button>
-          <button id="stopTimerBtn" class="ghost">Stop</button>
+          <button id="startTimerBtn">🔪 BEGIN MASSACRE</button>
+          <button id="stopTimerBtn" class="ghost">🛑 Flee</button>
         </div>
-        <p style="margin:0; color: var(--muted); font-size:0.85rem;">
-          Score as many victories as you can in 180 seconds. Garlic bonus for streaks!
+        <p style="margin:0; color: #e0aaff; font-size:0.85rem; font-weight: 600;">
+          ⚠️ How many demons can you slay before your time runs out? The darkness closes in... 180 seconds until DOOM!
         </p>
       </div>
       <div class="stat-card">
-        <h3>Dungeon Log</h3>
+        <h3>🩸 CRYPT CHRONICLES 🩸</h3>
         <div id="historyLog" style="max-height: 200px; overflow-y: auto; font-size: 0.9rem; color: var(--muted);"></div>
       </div>
       <div class="stat-card">
-        <h3>Ritual Loop</h3>
-        <ol style="margin:0; padding-left: 1.1rem; color: var(--muted); line-height: 1.6;">
-          <li>Sketch the plan before pressing Check.</li>
-          <li>Use hints sparingly to keep your streak glowing.</li>
-          <li>Log reflections after each summoned foe.</li>
+        <h3>📜 SURVIVAL RULES 📜</h3>
+        <ol style="margin:0; padding-left: 1.1rem; color: #e0aaff; line-height: 1.6; font-weight: 600;">
+          <li>🔮 Prepare your ritual before confronting the beast.</li>
+          <li>👻 Beware: spectral whispers weaken your power.</li>
+          <li>⚰️ Record each battle in your grimoire of shadows.</li>
+          <li>🩸 WRONG ANSWERS FEED THE VAMPIRE!</li>
         </ol>
       </div>
     </aside>
   </main>
-  <footer>
-    From your nocturnal calculus coach: trust your structure, test your steady states, and keep every Dracula derivative continuous.
+  <footer style="color: #c77dff; font-weight: 600; text-shadow: 0 0 20px rgba(157, 74, 221, 0.8), 0 0 40px rgba(157, 74, 221, 0.4);">
+    ⚠️ WARNING FROM THE CRYPT KEEPER ⚠️<br>
+    The spirits of failed students haunt these halls. Their screams echo through every unsolved equation.
+    Will you join them in eternal mathematical torment? Or will you prove your worth and escape before dawn?
+    Remember: Every derivative could be your last. Every integral leads deeper into darkness.
+    THE CALCULUS REAPER IS WATCHING... 💀🦇☠️
   </footer>
   <script>
     const difficultyNames = {
-      coffin: "Coffin Cozy",
-      fang: "Fang Sharp",
-      nightmare: "Final Nightmare"
+      coffin: "💀 Freshly Buried",
+      fang: "🩸 Bloodthirsty",
+      nightmare: "☠️ ETERNAL DAMNATION"
     };
 
     const questionBank = [
@@ -593,17 +859,17 @@
         type: "multipleChoice",
         prompt: "Solve $y'' + 4y = 8\\sin(2t)$ with $y(0)=0$, $y'(0)=1$.",
         options: [
-          "$y = \\tfrac{1}{2}\\sin(2t)$",
+          "$y = -2t\\cos(2t) + \\tfrac{3}{2}\\sin(2t)$",
           "$y = \\tfrac{1}{2} t \\sin(2t)$",
           "$y = t \\sin(2t)$",
           "$y = \\tfrac{1}{2} t \\sin(2t) + \\tfrac{1}{2} \\cos(2t)$"
         ],
-        answerIndex: 1,
+        answerIndex: 0,
         hints: [
           "Transform both sides and solve for $Y(s)$.",
-          "Partial fractions produce a $t\\sin(2t)$ term."
+          "You should get $Y(s) = \\dfrac{1}{s^{2}+4} + \\dfrac{16}{(s^{2}+4)^{2}}$ before inverting."
         ],
-        explanation: "$Y(s) = (s+2)/(s^{2}+4)^{2}$, so $y(t) = \\tfrac{1}{2} t \\sin(2t)$."
+        explanation: "After applying initial conditions, $(s^{2}+4)Y(s) - 1 = \\dfrac{16}{s^{2}+4}$, so $Y(s) = \\dfrac{1}{s^{2}+4} + \\dfrac{16}{(s^{2}+4)^{2}}$. Taking the inverse transform gives $y(t) = -2t\\cos(2t) + \\tfrac{3}{2}\\sin(2t)$."
       },
       {
         id: "systems-spiral",
@@ -630,12 +896,12 @@
         difficulty: "fang",
         type: "shortAnswer",
         prompt: "For $y' = 0.6y(1 - y/12)$, $y(0)=2$, compute $y(5)$ (1 decimal).",
-        answer: { type: "numeric", value: 11.1, tolerance: 0.2 },
+        answer: { type: "numeric", value: 9.6, tolerance: 0.2 },
         hints: [
           "General form: $\\frac{M}{1+Ae^{-kt}}$ with $M=12$.",
           "Solve for $A$ using $y(0)=2$."
         ],
-        explanation: "With $A=5$, $y(t) = \\frac{12}{1 + 5e^{-0.6t}}$, so $y(5) \\approx 11.1$."
+        explanation: "With $A=5$, $y(t) = \\frac{12}{1 + 5e^{-0.6t}}$, so $y(5) \\approx 9.61$."
       },
       {
         id: "heat-equation",
@@ -722,9 +988,9 @@
     }
 
     function renderQuestion(question) {
-      promptEl.innerHTML = question ? question.prompt : "No foes match that filter yet. Broaden your search.";
-      topicTag.textContent = question ? question.topic : "None";
-      difficultyTag.textContent = question ? (difficultyNames[question.difficulty] || question.difficulty) : "None";
+      promptEl.innerHTML = question ? question.prompt : "☠️ No creatures lurk in these shadows... Adjust your filter to awaken the horrors that await!";
+      topicTag.textContent = question ? question.topic : "🔮 None Summoned";
+      difficultyTag.textContent = question ? (difficultyNames[question.difficulty] || question.difficulty) : "Terror Level: Unknown";
       optionsEl.innerHTML = "";
       hintStageEl.innerHTML = "";
       solutionBlock.innerHTML = "";
@@ -775,7 +1041,7 @@
     function gradeQuestion() {
       const question = state.currentQuestion;
       if (!question) {
-        feedbackEl.textContent = "Summon a problem first.";
+        feedbackEl.textContent = "⚰️ Summon a demon from the abyss first, fool!";
         feedbackEl.classList.add("error");
         return;
       }
@@ -784,7 +1050,7 @@
       if (question.type === "multipleChoice") {
         const choice = optionsEl.querySelector("input[name='answer']:checked");
         if (!choice) {
-          feedbackEl.textContent = "Choose an option before striking.";
+          feedbackEl.textContent = "🗡️ Choose your weapon before facing the beast!";
           feedbackEl.classList.add("error");
           return;
         }
@@ -792,7 +1058,7 @@
       } else {
         const input = document.getElementById("freeResponseInput");
         if (!input || !input.value.trim()) {
-          feedbackEl.textContent = "Enter an answer to cross the moat.";
+          feedbackEl.textContent = "💀 Speak your answer or be consumed by darkness!";
           feedbackEl.classList.add("error");
           return;
         }
@@ -806,12 +1072,26 @@
         state.correct += 1;
         state.streak += 1;
         state.bestStreak = Math.max(state.bestStreak, state.streak);
-        feedbackEl.textContent = "Victory! The specter dissolves into mist.";
+        const victories = [
+          "⚔️ DEMON SLAIN! Its death scream echoes through the void...",
+          "🗡️ MONSTER VANQUISHED! Blood splattered across ancient tomes!",
+          "💀 BEAST DESTROYED! You step over its smoldering corpse...",
+          "🔥 NIGHTMARE BANISHED! The shadows retreat... for now.",
+          "⚰️ CREATURE ELIMINATED! Another soul freed from torment!"
+        ];
+        feedbackEl.textContent = victories[Math.floor(Math.random() * victories.length)];
         feedbackEl.className = "feedback success";
         logHistory(question, true);
       } else {
         state.streak = 0;
-        feedbackEl.textContent = "Missed. The creature circles back.";
+        const failures = [
+          "☠️ WRONG! The beast FEASTS on your failure! Blood drips from its fangs...",
+          "💀 INCORRECT! You feel your soul being drained... The vampire grows stronger!",
+          "🩸 FAILED! Screams of agony fill the crypt as darkness consumes you!",
+          "⚰️ DEATH! The creature tears into your flesh! Try again... IF YOU DARE!",
+          "👻 DOOMED! Your mistake awakens MORE horrors from their slumber!"
+        ];
+        feedbackEl.textContent = failures[Math.floor(Math.random() * failures.length)];
         feedbackEl.className = "feedback error";
         logHistory(question, false);
       }
@@ -819,8 +1099,8 @@
       const accuracy = state.attempts ? Math.round((state.correct / state.attempts) * 100) : 0;
       scoreCounter.textContent = `${state.correct} / ${state.attempts}`;
       accuracyBar.value = accuracy;
-      accuracyLabel.textContent = `Accuracy: ${accuracy}%`;
-      streakLabel.textContent = `Streak: ${state.streak} (Best ${state.bestStreak})`;
+      accuracyLabel.textContent = `Survival Rate: ${accuracy}%`;
+      streakLabel.textContent = `Kill Streak: ${state.streak} (Best ${state.bestStreak})`;
 
       if (state.flashcard && question.type === "multipleChoice") {
         revealSolution();
@@ -830,18 +1110,20 @@
     function revealHint() {
       const question = state.currentQuestion;
       if (!question) {
-        feedbackEl.textContent = "Summon something before hinting.";
+        feedbackEl.textContent = "👻 Summon a nightmare first, mortal!";
         feedbackEl.classList.add("error");
         return;
       }
       if (!question.hints || state.hintsRevealed >= question.hints.length) {
-        feedbackEl.textContent = "All hints already drawn from the crypt.";
+        feedbackEl.textContent = "🕯️ The spirits have spoken all they know... You're on your own now!";
         feedbackEl.classList.remove("success", "error");
         return;
       }
       const text = question.hints[state.hintsRevealed];
       const p = document.createElement("p");
-      p.innerHTML = `<strong>Hint ${state.hintsRevealed + 1}:</strong> ${text}`;
+      p.innerHTML = `<strong style="color: #c77dff;">👻 Spectral Whisper ${state.hintsRevealed + 1}:</strong> ${text}`;
+      p.style.borderColor = "rgba(157, 74, 221, 0.6)";
+      p.style.background = "rgba(0, 0, 0, 0.6)";
       hintStageEl.appendChild(p);
       state.hintsRevealed += 1;
       if (window.MathJax && MathJax.typesetPromise) {
@@ -852,11 +1134,13 @@
     function revealSolution() {
       const question = state.currentQuestion;
       if (!question) {
-        feedbackEl.textContent = "No puzzle summoned.";
+        feedbackEl.textContent = "⚰️ No demon has been summoned yet!";
         feedbackEl.classList.add("error");
         return;
       }
-      solutionBlock.innerHTML = `<strong>Solution:</strong> ${question.explanation}`;
+      solutionBlock.innerHTML = `<strong style="color: #c77dff;">⚰️ DEATH'S ANSWER:</strong> ${question.explanation}`;
+      solutionBlock.style.borderColor = "rgba(157, 74, 221, 0.7)";
+      solutionBlock.style.background = "rgba(0, 0, 0, 0.8)";
       solutionBlock.classList.add("active");
       if (window.MathJax && MathJax.typesetPromise) {
         MathJax.typesetPromise();
@@ -866,20 +1150,20 @@
     function toggleFlashcard() {
       state.flashcard = !state.flashcard;
       flashcardBtn.classList.toggle("secondary", state.flashcard);
-      flashcardBtn.textContent = state.flashcard ? "Flashcard Mode: ON" : "Flashcard Mode";
+      flashcardBtn.textContent = state.flashcard ? "🕯️ CURSED MODE: ACTIVE" : "🕯️ Cursed Study Mode";
     }
 
     function logHistory(question, wasCorrect) {
       const entry = document.createElement("div");
       entry.style.padding = "0.5rem 0";
-      entry.style.borderBottom = "1px solid rgba(189,147,249,0.2)";
+      entry.style.borderBottom = "1px solid rgba(157,74,221,0.4)";
       entry.innerHTML = `
-        <div style="font-size:0.75rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--muted);">
-          ${new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+        <div style="font-size:0.75rem; letter-spacing:0.08em; text-transform:uppercase; color:#e0aaff;">
+          ⏰ ${new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
         </div>
-        <div style="font-weight:600;">${question.topic} &bull; ${difficultyNames[question.difficulty] || question.difficulty}</div>
-        <div style="color:${wasCorrect ? 'var(--accent-2)' : 'var(--danger)'};">
-          ${wasCorrect ? "Vanquished" : "Escaped"}
+        <div style="font-weight:600; color:#c77dff;">${question.topic} &bull; ${difficultyNames[question.difficulty] || question.difficulty}</div>
+        <div style="color:${wasCorrect ? '#c77dff' : '#9d4edd'}; font-weight: 700;">
+          ${wasCorrect ? "⚔️ SLAYED" : "💀 KILLED YOU"}
         </div>
       `;
       historyLog.prepend(entry);
@@ -898,7 +1182,7 @@
       if (state.timeRemaining <= 0) {
         clearInterval(state.timer);
         state.timer = null;
-        feedbackEl.textContent = "Time! Count your conquests.";
+        feedbackEl.textContent = "⏰ TIME'S UP! The sun rises... but did you escape the crypt alive? Count your kills!";
         feedbackEl.classList.add("success");
         return;
       }
@@ -911,7 +1195,7 @@
       state.timeRemaining = 180;
       updateTimerDisplay();
       state.timer = setInterval(tickTimer, 1000);
-      feedbackEl.textContent = "Speedrun engaged. Slash swiftly!";
+      feedbackEl.textContent = "🔪 THE MASSACRE BEGINS! Slay as many demons as possible before the darkness claims you forever!";
       feedbackEl.classList.add("success");
     }
 
@@ -919,7 +1203,7 @@
       if (state.timer) {
         clearInterval(state.timer);
         state.timer = null;
-        feedbackEl.textContent = "Timer halted. Regain your pulse.";
+        feedbackEl.textContent = "🛑 You flee in terror... The beasts laugh at your cowardice!";
         feedbackEl.classList.remove("error", "success");
       }
     }
