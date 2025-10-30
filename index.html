@@ -54,6 +54,7 @@
       animation: screenFlicker 10s ease-in-out infinite;
       width: 100%;
       max-width: 100vw;
+      touch-action: pan-y pinch-zoom;
     }
 
     html {
@@ -184,6 +185,7 @@
       overflow-x: hidden;
       word-wrap: break-word;
       overflow-wrap: break-word;
+      touch-action: pan-y pinch-zoom;
     }
 
     @media (max-width: 720px) {
@@ -241,6 +243,7 @@
       font-size: 1rem;
       box-shadow: inset 0 0 0 1px rgba(189, 147, 249, 0.16);
       transition: transform 0.2s ease, box-shadow 0.2s ease;
+      touch-action: manipulation;
     }
 
     select:focus,
@@ -340,25 +343,25 @@
       box-shadow: inset 0 0 0 1px rgba(189, 147, 249, 0.22);
       width: 100%;
       max-width: 100%;
-      overflow-x: auto;
-      overflow-y: hidden;
+      overflow: visible;
     }
 
     @media (max-width: 720px) {
       .prompt {
         padding: 1rem;
         font-size: 1.15rem;
-        overflow-x: scroll;
-        -webkit-overflow-scrolling: touch;
       }
     }
 
     /* Ensure MathJax content scales on mobile */
     .prompt mjx-container {
+      display: inline-block;
       max-width: 100% !important;
       overflow-x: auto !important;
       overflow-y: hidden !important;
       font-size: 140% !important;
+      touch-action: pan-x pan-y;
+      -webkit-overflow-scrolling: touch;
     }
 
     @media (max-width: 720px) {
@@ -414,17 +417,20 @@
       word-wrap: break-word;
       overflow-wrap: break-word;
       max-width: 100%;
-      overflow-x: auto;
+      overflow: visible;
       font-size: 1.05rem;
       line-height: 1.6;
     }
 
     /* Ensure MathJax in options scales on mobile */
     .option-card mjx-container {
+      display: inline-block;
       max-width: 100% !important;
       overflow-x: auto !important;
       overflow-y: hidden !important;
       font-size: 130% !important;
+      touch-action: pan-x pan-y;
+      -webkit-overflow-scrolling: touch;
     }
 
     @media (max-width: 720px) {
